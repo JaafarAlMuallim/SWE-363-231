@@ -1,0 +1,35 @@
+body {
+  background-color: #1e1e1e;
+  color: #dedede;
+  margin: 0;
+}
+a {
+  color: #dedede;
+  text-decoration: underline;
+}
+main {
+  height: 80dvh;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+.styled-img {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.nav {
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+}
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.nav li {
+  margin-right: 1rem;
+}
