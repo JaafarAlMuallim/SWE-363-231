@@ -11,7 +11,7 @@
     <!-- 
         <link rel="stylesheet" href="./styles.css" />
     -->
-    <link rel="stylesheet" href="./index.css" />
+    <link rel="stylesheet" href="../CSS/index.css" />
     <title>Home Page</title>
   </head>
   <body>
@@ -52,13 +52,38 @@
     <main class="main-body">
       <section>
         <h1>SWE363 Blog</h1>
-        <img src="./assets/hello.jpeg" alt="preview" class="styled-img" />
+        <div class="image-container">
+            <img src="../assets/hello.jpeg" alt="preview" class="styled-img" />
+            <p class="watermark">JA</p>
+        </div>
         <p>
           This is an introduction in Web Development (Front-end) course. And
           this will be a simple website to work on during swe363 course.
         </p>
-      </section>
+          <div class="sidebar">
+              <div class="sidebar-header">
+                  <img src="../assets/hello.jpeg" alt="profile" class="profile-img">
+                  <h3>Jaafar Al-Muallim</h3>
+              </div>
+              <div class="sidebar-menu">
+                  <ul class="menu-list">
+                      <li class="menu-item"><a href="index.html">Home</a></li>
+                      <li class="menu-item"><a href="about.html">About</a></li>
+                      <li class="menu-item"><a href="contact-us.html">Contact Us</a></li>
+                  </ul>
+              </div>
+            </div>
+        </section>
+    <section class="card-container">
+
+        <div class="holder">
+            <div class="card-title">Card 1 Title</div>
+            <div class="card-date">2023-10-04</div>
+        </div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.</p>
+    </section>
     </main>
+
     <footer>
       <h5>All Rights Reserved &copy; 2023 - Jaafar Al-Muallim</p>
       <!--show contact info-->

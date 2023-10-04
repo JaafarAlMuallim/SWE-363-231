@@ -20,10 +20,14 @@ a {
   transition: all 0.3s ease;
 }
 main {
-  height: 80dvh;
+  height: 100dvh;
   display: flex;
   justify-content: center;
   text-align: center;
+}
+.img-container {
+  position: relative;
+  display: inline-block;
 }
 .styled-img {
   height: 200px;
@@ -172,4 +176,55 @@ a:hover {
     height: 100vh;
     width: 100vw;
   }
+}
+.sidebar {
+  float: right;
+  width: 50%; /* Adjust the width as needed */
+}
+.profile-img {
+  height: 5rem;
+  width: 5rem;
+  border-radius: 50%;
+}
+
+.watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0); /* Text color with transparency */
+  padding: 10px;
+}
+.watermark:hover {
+  color: rgba(255, 255, 255, 1); /* Text color with transparency */
+}
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 300px; /* Adjust this as needed */
+  margin: 10px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+.holder {
+  width: 100%;
+  display: flex;
+}
+/* CSS to style the title of the card */
+.card-title {
+  font-size: 18px;
+  font-weight: bold;
+  display: inline;
+}
+
+/* CSS to style the date on the card */
+.card-date {
+  font-size: 14px;
+  display: inline;
+  color: #666;
+  margin-left: auto;
 }
