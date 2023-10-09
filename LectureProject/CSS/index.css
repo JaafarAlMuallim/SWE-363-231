@@ -43,12 +43,6 @@ ul {
   justify-content: center;
   list-style-type: none;
 }
-footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
 .nav li {
   margin-right: 1rem;
 }
@@ -224,6 +218,44 @@ a:hover {
 /* CSS to style the date on the card */
 .card-date {
   font-size: 14px;
+  display: inline;
+  color: #666;
+  margin-left: auto;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 10px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+.date {
+  font-size: 1.5rem;
+  display: inline;
+  color: #666;
+  margin-left: auto;
+}
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  display: inline;
+}
+.brief {
+  font-size: 1.5rem;
+  display: inline;
+  color: #666;
+  margin-left: auto;
+}
+.link {
+  font-size: 1.5rem;
+  display: inline;
+  color: #666;
+  margin-left: auto;
+}
+.tags {
+  font-size: 1.5rem;
   display: inline;
   color: #666;
   margin-left: auto;
