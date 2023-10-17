@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../CSS/styles.css" />
     <title>Contact Us</title>
   </head>
-  <body>
+  <body class="styled">
     <!-- Header with Navbar -->
     <header>
       <nav>
@@ -61,8 +61,55 @@
             </section>
         </section>
         <section style="margin-top: 2rem;">
+            <div>
+
+            <label for="signatureCanvas">Signature:</label>
+            </div>
+            <canvas id="signatureCanvas" width="400" height="200" style="border:1px solid #000;"></canvas>
+            <input type="hidden" id="signatureImage" name="signatureImage" value="">
+            <div>
+                <button type="button" onclick="clearCanvas()">Clear Signature</button>
+            </div>
+        </section>
+        <section style="margin-top: 2rem;">
             <button>Submit</button>
         </section>
       </form>
+    <script>
+        let canvas = document.getElementById("signatureCanvas");
+        let ctx = canvas.getContext("2d");
+        let drawing = false;
+        canvas.addEventListener("mousedown", () => {
+            drawing = true;
+        });
+        canvas.addEventListener("mouseup", () => {
+            drawing = false;
+            ctx.beginPath();
+            document.getElementById("signatureImage").value = canvas.toDataURL();
+        });
+        canvas.addEventListener("mousemove", draw);
+        function draw(event) {
+            if (!drawing) return;
+            ctx.lineWidth = 5;
+            ctx.lineCap = "round";
+        
+            let rect = canvas.getBoundingClientRect();  // Get canvas's bounding box
+            let scaleX = canvas.width / rect.width;    // Calculate x scaling factor
+            let scaleY = canvas.height / rect.height;  // Calculate y scaling factor
+        
+            // Adjust the x and y coordinates for the scaling and bounding box
+            let x = (event.clientX - rect.left) * scaleX;
+            let y = (event.clientY - rect.top) * scaleY;
+        
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        }
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            document.getElementById("signatureImage").value = "";
+        }
+    </script>
   </body>
 </html>
