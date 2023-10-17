@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Screensaver</title>
+    <style>
+      body {
+        margin: 0;
+      }
+      canvas {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+      let camera, scene, renderer, geometry, material, line;
+      let lastInteractionTime = Date.now();
+      let isScreensaverActive = false;
+
+      const TIME = 0; // should be 60000 (1 min) but for testing purposes it is 1 sec
+      function createGeometry(
+        sigma = 10,
+        rho = 28,
+        beta = 8 / 3,
+        dt = 0.01,
+        steps = 10000,
+      ) {
+        // Lorenz Attractor Equation, Formula steps from chatgpt
+        const dxdt = (x, y) => sigma * (y - x);
+        const dydt = (x, y, z) => x * (rho - z) - y;
+        const dzdt = (x, y, z) => x * y - beta * z;
+
+        let x = 1;
+        let y = 1;
+        let z = 1;
+
+        const vertices = [];
+
+        for (let i = 0; i < steps; i++) {
+          const dx1 = dt * dxdt(x, y);
+          const dy1 = dt * dydt(x, y, z);
+          const dz1 = dt * dzdt(x, y, z);
+
+          const dx2 = dt * dxdt(x + 0.5 * dx1, y + 0.5 * dy1);
+          const dy2 = dt * dydt(x + 0.5 * dx1, y + 0.5 * dy1, z + 0.5 * dz1);
+          const dz2 = dt * dzdt(x + 0.5 * dx1, y + 0.5 * dy1, z + 0.5 * dz1);
+
+          const dx3 = dt * dxdt(x + 0.5 * dx2, y + 0.5 * dy2);
+          const dy3 = dt * dydt(x + 0.5 * dx2, y + 0.5 * dy2, z + 0.5 * dz2);
+          const dz3 = dt * dzdt(x + 0.5 * dx2, y + 0.5 * dy2, z + 0.5 * dz2);
+
+          const dx4 = dt * dxdt(x + dx3, y + dy3);
+          const dy4 = dt * dydt(x + dx3, y + dy3, z + dz3);
+          const dz4 = dt * dzdt(x + dx3, y + dy3, z + dz3);
+
+          x += (dx1 + 2 * dx2 + 2 * dx3 + dx4) / 6;
+          y += (dy1 + 2 * dy2 + 2 * dy3 + dy4) / 6;
+          z += (dz1 + 2 * dz2 + 2 * dz3 + dz4) / 6;
+
+          vertices.push(x, y, z);
+        }
+
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute(
+          "position",
+          new THREE.Float32BufferAttribute(vertices, 3),
+        );
+
+        return geometry;
+      }
+
+      function init() {
+        camera = new THREE.PerspectiveCamera(
+          70,
+          window.innerWidth / window.innerHeight,
+          0.01,
+          100,
+        );
+        camera.position.z = 60;
+
+        scene = new THREE.Scene();
+
+        geometry = createGeometry();
+
+        material = new THREE.LineBasicMaterial({ color: 0xff0000 });
+        line = new THREE.Line(geometry, material);
+        scene.add(line);
+
+        renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+      }
+      function animate() {
+        requestAnimationFrame(animate);
+        if (currentTime - lastInteractionTime > TIME && !isScreensaverActive) {
+          isScreensaverActive = true;
+          document.body.appendChild(renderer.domElement);
+        }
+        if (isScreensaverActive) {
+          line.rotation.x += 0.005;
+          line.rotation.y += 0.01;
+          renderer.render(scene, camera);
+        }
+      }
+
+      // we can also put other events such as window resize or keydown to stop the screensaver
+      document.addEventListener("mousemove", () => {
+        lastInteractionTime = Date.now();
+
+        if (isScreensaverActive) {
+          isScreensaverActive = false;
+          if (document.body.contains(renderer.domElement)) {
+            document.body.removeChild(renderer.domElement);
+          }
+        }
+      });
+
+      init();
+      animate();
+    </script>
+  </body>
+</html>

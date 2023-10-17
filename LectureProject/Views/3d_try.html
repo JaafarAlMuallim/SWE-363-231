@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Screensaver</title>
+    <style>
+      body {
+        margin: 0;
+        background-color: #000;
+      }
+      canvas {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+      const TIME = 0; // should be 60000 (1 min) but for testing purposes it is 1 sec
+      let camera, scene, renderer, geometry, material, mesh;
+      let lastInteractionTime = Date.now();
+      let isScreensaverActive = false;
+
+      function init() {
+        camera = new THREE.PerspectiveCamera(
+          70,
+          window.innerWidth / window.innerHeight,
+          0.01,
+          10,
+        );
+
+        camera.position.z = 1;
+        scene = new THREE.Scene();
+        geometry = new THREE.TorusKnotGeometry(0.3, 0.1, 1000, 20);
+        material = new THREE.MeshNormalMaterial();
+        mesh = new THREE.Mesh(geometry, material);
+        scene.add(mesh);
+        renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+      }
+
+      function animate() {
+        requestAnimationFrame(animate);
+        let currentTime = Date.now();
+        if (currentTime - lastInteractionTime > TIME && !isScreensaverActive) {
+          isScreensaverActive = true;
+          document.body.appendChild(renderer.domElement);
+        }
+        if (isScreensaverActive) {
+          mesh.rotation.x += 0.01;
+          mesh.rotation.y += 0.02;
+          renderer.render(scene, camera);
+        }
+      }
+      // we can also put other events such as window resize or keydown to stop the screensaver
+      document.addEventListener("mousemove", () => {
+        lastInteractionTime = Date.now();
+        if (isScreensaverActive) {
+          isScreensaverActive = false;
+          if (document.body.contains(renderer.domElement)) {
+            document.body.removeChild(renderer.domElement);
+          }
+        }
+      });
+
+      init();
+      animate();
+    </script>
+  </body>
+</html>
