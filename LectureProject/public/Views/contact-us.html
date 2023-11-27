@@ -37,14 +37,14 @@
       </ul>
     <!-- Form + submit to navigate to confirmation  -->
     </section>
-      <form action="confirmation.html" style="display: flex; flex-direction: column; justify-content: center;text-align: center;">
+      <form action="/contact-us"method="POST" style="display: flex; flex-direction: column; justify-content: center;text-align: center;">
         <section>
           <label for="name">Name</label>
-          <input type="text" id="name" placeholder="Mohammad Ali" />
+          <input type="text" id="name" name="name" placeholder="Mohammad Ali" />
         </section>
         <section style="margin-top: 2rem;">
           <label for="email">Email</label>
-          <input type="email" id="email" placeholder="example@example.com" />
+          <input type="email" id="email" name="email" placeholder="example@example.com" />
         </section>
         <section style="margin-top: 2rem">
             <label for="content" style="margin: 2rem; font-size: 1.25rem;">Write me an email</label>

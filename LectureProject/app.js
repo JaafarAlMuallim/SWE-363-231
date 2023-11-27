@@ -28,6 +28,10 @@ app.get("/contact-us", (req, res) => {
   res.sendFile("/public/views/contact-us.html", { root: __dirname });
 });
 
+app.post("/contact-us", (req, res) => {
+  res.sendFile("/public/views/confirmation.html", { root: __dirname });
+});
+
 app.get("/figma", (req, res) => {
   res.sendFile("/public/views/figma.html", { root: __dirname });
 });
