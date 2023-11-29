@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hire Me</title>
+  </head>
+  <link rel="stylesheet" href="../CSS/styles.css" />
+  <body>
+    <!-- Header with Navbar -->
+    <header>
+      <nav>
+        <ul class="nav">
+          <li class="link"><a href="/index">Home</a></li>
+          <li class="link"><a href="/about">About</a></li>
+          <li class="link"><a href="/contact-us">Contact Us</a></li>
+          <li class="link">
+            <a href="/new_table">Feature Table IOS</a>
+          </li>
+          <li class="link">
+            <a href="/complexForm">Complex From</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <form action="/complexForm" method="POST">
+        <section>
+          <label for="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            autocomplete="name"
+            placeholder="Mohammad Ali"
+            required
+          />
+        </section>
+        <section style="margin-top: 1rem">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            autocomplete="email"
+            placeholder="example@gmail.com"
+            required
+          />
+        </section>
+        <section style="margin-top: 1rem">
+          <label for="car">Car</label>
+          <input list="cars" id="car" required />
+          <datalist id="cars">
+            <option value="BMW" />
+            <option value="Bentley" />
+            <option value="Mercedes" />
+            <option value="Audi" />
+            <option value="Volkswagen" />
+          </datalist>
+        </section>
+        <section style="margin-top: 1rem">
+          <label for="color">Car color</label>
+          <input type="color" id="color" required />
+        </section>
+        <section style="margin-top: 1rem">
+          <label for="exp">Expereince Years</label>
+          <input type="number" id="exp" min="0" max="99" required />
+        </section>
+
+        <section style="margin-top: 1rem">
+          <button type="submit">Register</button>
+        </section>
+      </form>
+    </main>
+  </body>
+</html>

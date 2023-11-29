@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta keywords="portfolio, swe363, task, home, web dev, development" />
+    <meta
+      description="This is a simple website to work on during swe363 course."
+    />
+    <meta author="Jaafar" />
+    <link rel="stylesheet" href="../CSS/styles.css" />
+    <title>Contact Us</title>
+  </head>
+  <body class="styled">
+    <!-- Header with Navbar -->
+    <header>
+      <nav>
+        <ul class="nav">
+          <li class="link"><a href="/index">Home</a></li>
+          <li class="link"><a href="/about">About</a></li>
+          <li class="link"><a href="/contact-us">Contact Us</a></li>
+          <li class="link">
+            <a href="/new_table">Feature Table IOS</a>
+          </li>
+          <li class="link">
+            <a href="/complexForm">Complex From</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <section>
+      <h1>Hello World</h1>
+      <ul>
+        <li>Name: Jaafar Al-Muallim</li>
+        <li>Email: xxx@gmail.com</li>
+        <li>Phone Number: 05xxxxxxxx</li>
+      </ul>
+    <!-- Form + submit to navigate to confirmation  -->
+    </section>
+      <form action="/contact-us" method="POST" style="display: flex; flex-direction: column; justify-content: center;text-align: center;">
+        <section>
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Mohammad Ali" />
+        </section>
+        <section style="margin-top: 2rem;">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="example@example.com" />
+        </section>
+        <section style="margin-top: 2rem">
+            <label for="content" style="margin: 2rem; font-size: 1.25rem;">Write me an email</label>
+            <section style="display: flex; align-items: center; justify-content: center; margin-top: 2rem;">
+                <textarea
+                    style="display: block; align-self: center;"
+                    name="content"
+                    id=""
+                    cols="30"
+                    rows="10"
+                    placeholder="Hello There :)"
+                    style="display: block;"
+                    /></textarea>
+            </section>
+        </section>
+        <section style="margin-top: 2rem;">
+            <div>
+
+            <label for="signatureCanvas">Signature:</label>
+            </div>
+            <canvas id="signatureCanvas" width="400" height="200" style="border:1px solid #000;"></canvas>
+            <input type="hidden" id="signatureImage" name="signatureImage" value="">
+            <div>
+                <button type="button" onclick="clearCanvas()">Clear Signature</button>
+            </div>
+        </section>
+        <section style="margin-top: 2rem;">
+            <button>Submit</button>
+        </section>
+      </form>
+    <script>
+        let canvas = document.getElementById("signatureCanvas");
+        let ctx = canvas.getContext("2d");
+        let drawing = false;
+        canvas.addEventListener("mousedown", () => {
+            drawing = true;
+        });
+        canvas.addEventListener("mouseup", () => {
+            drawing = false;
+            ctx.beginPath();
+            document.getElementById("signatureImage").value = canvas.toDataURL();
+        });
+        canvas.addEventListener("mousemove", draw);
+        function draw(event) {
+            if (!drawing) return;
+            ctx.lineWidth = 5;
+            ctx.lineCap = "round";
+        
+            let rect = canvas.getBoundingClientRect();  // Get canvas's bounding box
+            let scaleX = canvas.width / rect.width;    // Calculate x scaling factor
+            let scaleY = canvas.height / rect.height;  // Calculate y scaling factor
+        
+            // Adjust the x and y coordinates for the scaling and bounding box
+            let x = (event.clientX - rect.left) * scaleX;
+            let y = (event.clientY - rect.top) * scaleY;
+        
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        }
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            document.getElementById("signatureImage").value = "";
+        }
+    </script>
+  </body>
+</html>
